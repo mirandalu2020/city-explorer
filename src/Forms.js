@@ -34,7 +34,8 @@ class Forms extends React.Component{
       cityLong: data.data[0].lon,
       //map: `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${data.data[0].lat},${data.data[0].lon}&zoom=12`
     },
-    this.renderMap)
+    this.renderMap
+    )
 
     } catch(error) {
       console.log(`Error: ${error} Error Message: ${error.response.status}`);
@@ -43,7 +44,7 @@ class Forms extends React.Component{
   
   handleCityInput = (event) => {
     this.setState({
-      cityName: event.target.value
+      cityName: event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1),
     });
   }
 
@@ -52,33 +53,37 @@ class Forms extends React.Component{
   }
 
   renderMap = () => {
-    let token = process.env.REACT_APP_LOCATIONIQ_API_KEY[0]==='='?process.env.REACT_APP_LOCATIONIQ_API_KEY.slice(1,):process.env.REACT_APP_LOCATIONIQ_API_KEY;
+    if (this.state.cityData.length !==0) {
+      let token = process.env.REACT_APP_LOCATIONIQ_API_KEY[0]==='='?process.env.REACT_APP_LOCATIONIQ_API_KEY.slice(1,):process.env.REACT_APP_LOCATIONIQ_API_KEY;
     let mapURL = `https://maps.locationiq.com/v3/staticmap?key=${token}&center=${this.state.cityLat},${this.state.cityLong}&zoom=12`
     this.setState({
       map:mapURL
     })
+    };
+  
+
   }
 
   render() {
-     if (this.state.cityData.length !== 0) {
-      console.log(this.state)
-     }
+    //  if (this.state.cityData.length !== 0) {
+    //   console.log(this.state)
+    //  }
     
     return(
       <>      
-        <Form  onSubmit={this.getDataOnSubmit}>
+        <Form className="city-form" onSubmit={this.getDataOnSubmit}>
         <Form.Group  controlId="cityInput">
-          <Form.Label>City Input</Form.Label>
+          <Form.Label>What city interests you?</Form.Label>
           <Form.Control type="text" placeholder="e.g. Seattle" onChange={this.handleCityInput}/>
         </Form.Group>
         <Button type="submit">Explore!</Button>
         </Form>
-      <ul>
-        <li>{this.state.cityName}</li>
+      <ul className="geo-info">
+        <li>{this.state.cityData.display_name}</li>
         <li>{this.state.cityLat}</li>
         <li>{this.state.cityLong}</li>
       </ul>
-      <img src={this.state.map} alt={this.state.cityName}/>     
+      <img className="city-map" src={this.state.map} alt={this.state.cityData.display_name}/>     
       </>
 
     )

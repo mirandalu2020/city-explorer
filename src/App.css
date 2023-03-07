@@ -36,3 +36,24 @@
     transform: rotate(360deg);
   }
 }
+
+.city-form{
+  width:95%;
+  margin: 2rem auto;
+}
+
+.geo-info{
+  border: 2px solid pink;
+  list-style-type: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  width: 95%;
+  margin: 1rem auto;
+}
+
+.city-map{
+  margin: 1rem auto;
+  width: 70%;
+  object-fit: contain;
+}
