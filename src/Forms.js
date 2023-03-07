@@ -49,7 +49,7 @@ class Forms extends React.Component{
   }
 
   renderMap = () => {
-    let mapURL = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${this.state.cityLat},${this.state.cityLong}&zoom=12`
+    let mapURL = `https://maps.locationiq.com/v3/staticmap?key=pk.3d735c058e233b640e3fdfab002a20b9&q&center=${this.state.cityLat},${this.state.cityLong}&zoom=12`
     this.setState({
       map:mapURL
     })
