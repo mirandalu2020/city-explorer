@@ -20,7 +20,6 @@ class Forms extends React.Component{
   getDataOnSubmit = async (e) =>{
     e.preventDefault();
     try{
-      
       let token = process.env.REACT_APP_LOCATIONIQ_API_KEY[0]==='='?process.env.REACT_APP_LOCATIONIQ_API_KEY.slice(1,):process.env.REACT_APP_LOCATIONIQ_API_KEY;
       console.log(token)
     let data = await axios.get(`https://us1.locationiq.com/v1/search?key=${token}&q=${this.state.cityName}&format=json`);
@@ -33,7 +32,7 @@ class Forms extends React.Component{
       cityName: data.data[0].display_name,
       cityLat: data.data[0].lat,
       cityLong: data.data[0].lon,
-     // map: `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${data.data[0].lat},${data.data[0].lon}&zoom=12`
+      //map: `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_API_KEY}&center=${data.data[0].lat},${data.data[0].lon}&zoom=12`
     },
     this.renderMap)
 
@@ -53,7 +52,7 @@ class Forms extends React.Component{
   }
 
   renderMap = () => {
-    let token = process.env.REACT_APP_LOCATIONIQ_API_KEY;
+    let token = process.env.REACT_APP_LOCATIONIQ_API_KEY[0]==='='?process.env.REACT_APP_LOCATIONIQ_API_KEY.slice(1,):process.env.REACT_APP_LOCATIONIQ_API_KEY;
     let mapURL = `https://maps.locationiq.com/v3/staticmap?key=${token}&center=${this.state.cityLat},${this.state.cityLong}&zoom=12`
     this.setState({
       map:mapURL
