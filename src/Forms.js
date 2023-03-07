@@ -20,8 +20,9 @@ class Forms extends React.Component{
   getDataOnSubmit = async (e) =>{
     e.preventDefault();
     try{
-      console.log(process.env.REACT_APP_LOCATIONIQ_API_KEY)
+      
       let token = process.env.REACT_APP_LOCATIONIQ_API_KEY[0]==='='?process.env.REACT_APP_LOCATIONIQ_API_KEY.slice(1,):process.env.REACT_APP_LOCATIONIQ_API_KEY;
+      console.log(token)
     let data = await axios.get(`https://us1.locationiq.com/v1/search?key=${token}&q=${this.state.cityName}&format=json`);
 
     // console.log(data.data[0])
