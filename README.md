@@ -12,8 +12,10 @@ Making a map for a city upon user-request, then generate info regarding the city
 Any machine with npm
 
 ## Architecture
-<!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
-Bootstrap, Node.js
+
+![lab6 WRRC](WRRC/WRRC1.png)
+
+![lab7 WRRC](WRRC/WRRC2.png)
 
 ## Change Log
 <!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
@@ -23,4 +25,4 @@ Bootstrap, Node.js
 
 ## Credit and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
-Special thanks to: Sheyna, Justin.
+Special thanks to: Sheyna, Justin. Daniel Yoon
