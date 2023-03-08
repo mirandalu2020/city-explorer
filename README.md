@@ -23,4 +23,4 @@ Bootstrap, Node.js
 
 ## Credit and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
-Special thanks to: Sheyna, Justin.
+Special thanks to: Sheyna, Justin. Daniel Yoon
