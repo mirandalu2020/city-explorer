@@ -1,3 +1,5 @@
+
+
 .App {
   text-align: center;
 }
@@ -56,4 +58,10 @@
   margin: 1rem auto;
   width: 70%;
   object-fit: contain;
+}
+
+body{
+  width: 95%;
+  margin: 1rem auto;
+  background-color: #bae4f091;
 }

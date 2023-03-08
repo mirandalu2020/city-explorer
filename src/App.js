@@ -34,9 +34,14 @@ class App extends React.Component{
       mapURL: `https://maps.locationiq.com/v3/staticmap?key=${token}&center=${data.data[0].lat},${data.data[0].lon}&zoom=12`,
       error:false,
     },
-    this.makeWeatherArr
     )
-    } 
+
+    let cityWeatherData = await axios.get(`${process.env.REACT_APP_SERVER}/weather?search=${this.state.cityName}`)
+    // console.log(cityWeatherData);
+    this.setState({
+      weatherData: cityWeatherData
+    })
+  } 
     catch(error) {
       this.setState({
         error:true,
@@ -52,14 +57,14 @@ class App extends React.Component{
     });
   }
 
-  makeWeatherArr = async() => {
-    /////request data from server
-    let cityWeatherData = await axios.get(`${process.env.REACT_APP_SERVER}/weather?search=${this.state.cityName}`)
-    // console.log(cityWeatherData);
-    this.setState({
-      weatherData: cityWeatherData
-    })
-  }
+  // makeWeatherArr = async() => {
+  //   /////request data from server
+  //   let cityWeatherData = await axios.get(`${process.env.REACT_APP_SERVER}/weather?search=${this.state.cityName}`)
+  //   // console.log(cityWeatherData);
+  //   this.setState({
+  //     weatherData: cityWeatherData
+  //   })
+  // }
 
   render() {
     return (
