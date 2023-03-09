@@ -1,35 +1,29 @@
 import React from 'react';
 import './App.css'; 
+import Alert from 'react-bootstrap/Alert';
+import Card from 'react-bootstrap/Card';
 
 class Weather extends React.Component{
 
-
-
   render() {
     let listItems = []
-    try {
-    // console.log(this.props.weatherData.data[0].date)
+    if (this.props.weatherData) {
+          // console.log(this.props.weatherData.data[0].date)
     // console.log(this.props.weatherData.data[0].description)
-  let idx = 0;
-     for (let i of this.props.weatherData.data) {
+     for (let i of this.props.weatherData) {
        listItems.push(
-       <ul>
-       <li key={idx.toString()+'date'}>{i.date}</li>
-       <li key={idx.toString()+'description'}>{i.description}</li>
-       </ul>)
-       idx +=1;
-     }
-
-  //   const listItems = this.props.weatherData.data.map((item,idx) =>
-  //   <>
-  //   <li key={idx}>{item.date}</li>
-  //   <li key={idx}>{item.description}</li>
-  //   </>
-  // );
-  // console.log('listItems: '+ listItems)
-
-    } catch (error) {
-      listItems.push(<p>The city you are looking for is unavailable</p>)
+        <Card style={{ width: '18rem' }}>
+        <Card.Body>
+          <Card.Title>{i.date}</Card.Title>
+          <Card.Text>
+          {i.description}
+          </Card.Text>
+        </Card.Body>
+      </Card>
+    )}
+  }
+    else{
+      listItems.push(<Alert key='danger' variant='danger'>The city you are looking for is unavailable</Alert>)
       // console.log(listItems)
     }
 
