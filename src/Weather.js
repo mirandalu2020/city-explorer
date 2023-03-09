@@ -7,8 +7,9 @@ class Weather extends React.Component{
 
   render() {
     let listItems = []
+    try{
     if (this.props.weatherData) {
-          // console.log(this.props.weatherData.data[0].date)
+      console.log(this.props.weatherData)
     // console.log(this.props.weatherData.data[0].description)
      for (let i of this.props.weatherData) {
        listItems.push(
@@ -26,6 +27,9 @@ class Weather extends React.Component{
       listItems.push(<Alert key='danger' variant='danger'>The city you are looking for is unavailable</Alert>)
       // console.log(listItems)
     }
+  }   catch(error) {
+    
+  }
 
     return (
       <>
