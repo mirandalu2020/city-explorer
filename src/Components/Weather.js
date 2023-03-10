@@ -20,19 +20,7 @@ class Weather extends React.Component{
         />
       )
     }
-    
     )
-    //  for (let i of this.props.weatherData) {
-    //    listItems.push(
-    //     <Card style={{ width: '18rem' }}>
-    //     <Card.Body>
-    //       <Card.Title>{i.date}</Card.Title>
-    //       <Card.Text>
-    //       {i.description}
-    //       </Card.Text>
-    //     </Card.Body>
-    //   </Card>
-    // )}
   }
   
     else{
@@ -48,11 +36,7 @@ class Weather extends React.Component{
     return (
       <>
       <h3>Forecast</h3>
-      {/* <WeatherDay
-              cityName={this.props.cityData.display_name}
-              weatherData={this.props.weatherData}
-              error={this.props.error}
-              errorMessage={this.props.errorMessage} /> */}
+      {listItems}
       </>
     )
   }

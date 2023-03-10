@@ -9,8 +9,7 @@ class WeatherDay extends React.Component{
       <Card style={{ width: '18rem' }}>
       <Card.Body>
         <Card.Title>{this.props.date}</Card.Title>
-        <Card.Text>{this.props.description}
-        </Card.Text>
+        <Card.Text>{this.props.description}</Card.Text>
       </Card.Body>
     </Card>
     )

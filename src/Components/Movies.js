@@ -3,7 +3,6 @@ import '../App.css';
 import Movie from './Movie';
 
 import Alert from 'react-bootstrap/Alert';
-import Card from 'react-bootstrap/Card';
 
 class Movies extends React.Component{
   render() {
