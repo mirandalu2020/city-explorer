@@ -1,9 +1,10 @@
 import React from 'react';
 import './App.css'; 
 import Forms from './Forms'
-import Weather from './Weather'
-import Movie from './Movie'
+import Weather from './Components/Weather'
+import Movies from './Components/Movies'
 import axios from 'axios';
+
 
 class App extends React.Component{
 
@@ -15,10 +16,12 @@ class App extends React.Component{
       cityLat: '',
       cityLong:'',
       mapURL:'',
-      error:false,
-      errorMessage:'',
+      isWeatherLoaded:false,
+      isMovieLoaded:false,
       weatherData:{},
       movieData:{},
+      error:false,
+      errorMessage:'',
     }
   }
 
@@ -32,10 +35,9 @@ class App extends React.Component{
       cityData: data.data[0],
       cityLat: data.data[0].lat,
       cityLong: data.data[0].lon,
-      // searchQuery:`lat=${data.data[0].lat}&lon=${data.data[0].lon}`,
       mapURL: `https://maps.locationiq.com/v3/staticmap?key=${token}&center=${data.data[0].lat},${data.data[0].lon}&zoom=12`,
       error:false,
-     }, this.getCityWeatherURL
+      }, this.getCityWeatherURL
     )}
 
     catch(error) {
@@ -53,6 +55,7 @@ class App extends React.Component{
     console.log(cityWeatherData.data)
     this.setState({
       weatherData: cityWeatherData.data,
+      isWeatherLoaded: true,
     })
   }
 
@@ -60,8 +63,10 @@ class App extends React.Component{
     let cityMovieData = await axios.get(`${process.env.REACT_APP_SERVER}/movie?city=${this.state.cityName}`)
     console.log(cityMovieData.data)
     this.setState({
-      movieData:cityMovieData,
+      movieData:cityMovieData.data,
+      isMovieLoaded:true,
     })
+    console.log(this.state.movieData)
   }
  
 
@@ -72,34 +77,43 @@ class App extends React.Component{
   };
 
   render() {
+    const isWeatherLoaded = this.state.isWeatherLoaded;
+    console.log(isWeatherLoaded)
     return (
       <>
-      
-    <Forms 
-    getDataOnSubmit={this.getDataOnSubmit}
-    handleCityInput={this.handleCityInput}
-    cityData={this.state.cityData}
-    mapURL={this.state.mapURL} />
+        <Forms
+          getDataOnSubmit={this.getDataOnSubmit}
+          handleCityInput={this.handleCityInput}
+          cityData={this.state.cityData}
+          mapURL={this.state.mapURL} />
 
-    {this.weatherComponent !=={}
-    &&
-          <><Weather
-            cityName={this.state.cityData.display_name}
-            weatherData={this.state.weatherData}
-            error={this.state.error}
-            errorMessage={this.state.errorMessage} /><ul className="geo-info">
+        {isWeatherLoaded &&
+          <>
+            <Weather
+              cityName={this.state.cityData.display_name}
+              weatherData={this.state.weatherData}
+              error={this.state.error}
+              errorMessage={this.state.errorMessage} />
+              
+              </>}
+              
+              <ul className="geo-info">
               <li>{this.state.cityData.display_name}</li>
               <li>{this.state.cityData.lat}</li>
               <li>{this.state.cityData.lon}</li>
-            </ul><img className="city-map" src={this.state.mapURL} alt={this.state.cityData.display_name} /><Movie
-              movieData={this.state.movieData}
-              error={this.state.error}
-              errorMessage={this.state.errorMessage} /></>
+            </ul>
+            <img className="city-map" src={this.state.mapURL} alt={this.state.cityData.display_name} />
 
-  }
+          
+          
+          
+          <Movies
+          movieData={this.state.movieData}
+          error={this.state.error}
+          errorMessage={this.state.errorMessage} />
+          </>
+  )}
+        }
 
-    </>)
-  }
-  }
 
 export default App;
