@@ -75,7 +75,7 @@ class App extends React.Component{
       movieData:cityMovieData.data,
       isMovieLoaded:true,
     })
-    console.log(this.state.movieData)
+    //console.log(this.state.movieData)
   }
  
   handleCityInput = (event) => {
