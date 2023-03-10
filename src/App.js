@@ -3,7 +3,11 @@ import './App.css';
 import Forms from './Forms'
 import Weather from './Components/Weather'
 import Movies from './Components/Movies'
+import GeoInfo  from './Components/GeoInfo';
 import axios from 'axios';
+import Alert from 'react-bootstrap/Alert';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 
 class App extends React.Component{
@@ -16,6 +20,7 @@ class App extends React.Component{
       cityLat: '',
       cityLong:'',
       mapURL:'',
+      isGeoLoaded:false,
       isWeatherLoaded:false,
       isMovieLoaded:false,
       weatherData:{},
@@ -35,22 +40,26 @@ class App extends React.Component{
       cityData: data.data[0],
       cityLat: data.data[0].lat,
       cityLong: data.data[0].lon,
+      isGeoLoaded:true,
       mapURL: `https://maps.locationiq.com/v3/staticmap?key=${token}&center=${data.data[0].lat},${data.data[0].lon}&zoom=12`,
       error:false,
-      }, this.getCityWeatherURL
+      }, this.getAllData
     )}
-
     catch(error) {
       this.setState({
         error:true,
-        errorMessage: `Error: ${error} Error Message: ${error.response.status}`
+        errorMessage: `${error.response.status}`
       })
       console.log(`Error: ${error} Error Message: ${error.response.status}`);
     }
   }
 
-  getCityWeatherURL = async ()=> {
-    this.getCityMovieURL();
+  getAllData = () => {
+    this.getCityMovieData();
+    this.getCityWeatherData();
+  }
+
+  getCityWeatherData = async ()=> {
     let cityWeatherData = await axios.get(`${process.env.REACT_APP_SERVER}/weather?lat=${this.state.cityLat}&lon=${this.state.cityLong}`)
     console.log(cityWeatherData.data)
     this.setState({
@@ -59,7 +68,7 @@ class App extends React.Component{
     })
   }
 
-  getCityMovieURL = async () => {
+  getCityMovieData = async () => {
     let cityMovieData = await axios.get(`${process.env.REACT_APP_SERVER}/movie?city=${this.state.cityName}`)
     console.log(cityMovieData.data)
     this.setState({
@@ -69,7 +78,6 @@ class App extends React.Component{
     console.log(this.state.movieData)
   }
  
-
   handleCityInput = (event) => {
     this.setState({
       cityName: event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1),
@@ -77,8 +85,9 @@ class App extends React.Component{
   };
 
   render() {
-    const isWeatherLoaded = this.state.isWeatherLoaded;
-    console.log(isWeatherLoaded)
+    // const isWeatherLoaded = this.state.isWeatherLoaded;
+    console.log(this.state.isWeatherLoaded)
+    
     return (
       <>
         <Forms
@@ -87,30 +96,38 @@ class App extends React.Component{
           cityData={this.state.cityData}
           mapURL={this.state.mapURL} />
 
-        {isWeatherLoaded &&
+      {this.state.error === true &&
           <>
-            <Weather
+          <Alert key='danger' variant='danger'>
+            {`${this.state.errorMessage} - your city isn't explorable`}
+          </Alert>
+          <img class="error" src={`https://http.cat/${this.state.errorMessage}`} alt={`Error with status code ${this.state.errorMessage}`} />
+          </>
+        }
+          {this.state.isGeoLoaded &&
+           <Row className="geo-info-container"> <GeoInfo 
+              cityData = {this.state.cityData}
+              mapURL = {this.state.mapURL}
+            /></Row>}
+
+        {this.state.isWeatherLoaded &&
+            <Row><Weather
               cityName={this.state.cityData.display_name}
               weatherData={this.state.weatherData}
               error={this.state.error}
-              errorMessage={this.state.errorMessage} />
-              
-              </>}
-              
-              <ul className="geo-info">
-              <li>{this.state.cityData.display_name}</li>
-              <li>{this.state.cityData.lat}</li>
-              <li>{this.state.cityData.lon}</li>
-            </ul>
-            <img className="city-map" src={this.state.mapURL} alt={this.state.cityData.display_name} />
+              errorMessage={this.state.errorMessage} /></Row>
+              }
 
-          
-          
-          
-          <Movies
+
+          {this.state.isMovieLoaded &&
+          <Row>
+            <Col xs={12} md={8}></Col>
+            <Movies
           movieData={this.state.movieData}
           error={this.state.error}
           errorMessage={this.state.errorMessage} />
+          </Row>
+          }
           </>
   )}
         }

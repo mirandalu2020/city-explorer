@@ -40,18 +40,32 @@
 }
 
 .city-form{
-  width:95%;
-  margin: 2rem auto;
+  width:40%;
+  margin: 1rem auto;
+  height:110px;
 }
 
-.geo-info{
-  border: 2px solid pink;
-  list-style-type: none;
+.geo-info-container{
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  width: 95%;
+  width: max-content;
   margin: 1rem auto;
+  align-content: center;
+}
+
+.list-group{
+  display:flex;
+  justify-content: space-evenly;
+}
+
+.list-group-item{
+  border: 2px solid pink;
+  list-style-type: none;
+  width:max-content;
+} 
+
+.geo-info-container figure{
+  width:fit-content
 }
 
 .city-map{
@@ -62,6 +76,28 @@
 
 body{
   width: 95%;
-  margin: 1rem auto;
   background-color: #bae4f091;
+}
+
+.error {
+  width: 99vw;
+}
+
+.alert-danger{
+  text-align: center;
+  width: 80%;
+  margin: 1rem auto;
+}
+
+.forecast{
+  width: 1400px;
+}
+ 
+.card{
+  margin: 1rem;
+}
+
+.row{
+  width: 95%;
+  margin: 0 auto;
 }
