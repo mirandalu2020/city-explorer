@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css'; 
 import Forms from './Forms'
-import Weather from './Weather'
-import Movie from './Movie'
+import Weather from './Components/Weather'
+import Movies from './Components/Movies'
 import axios from 'axios';
 
 
@@ -52,7 +52,7 @@ class App extends React.Component{
   getCityWeatherURL = async ()=> {
     this.getCityMovieURL();
     let cityWeatherData = await axios.get(`${process.env.REACT_APP_SERVER}/weather?lat=${this.state.cityLat}&lon=${this.state.cityLong}`)
-    console.log(cityWeatherData)
+    console.log(cityWeatherData.data)
     this.setState({
       weatherData: cityWeatherData.data,
       isWeatherLoaded: true,
@@ -89,12 +89,13 @@ class App extends React.Component{
 
         {isWeatherLoaded &&
           <>
-          
             <Weather
               cityName={this.state.cityData.display_name}
               weatherData={this.state.weatherData}
               error={this.state.error}
               errorMessage={this.state.errorMessage} />
+              
+              </>}
               
               <ul className="geo-info">
               <li>{this.state.cityData.display_name}</li>
@@ -103,10 +104,10 @@ class App extends React.Component{
             </ul>
             <img className="city-map" src={this.state.mapURL} alt={this.state.cityData.display_name} />
 
-          </>
-          }
           
-          <Movie
+          
+          
+          <Movies
           movieData={this.state.movieData}
           error={this.state.error}
           errorMessage={this.state.errorMessage} />
