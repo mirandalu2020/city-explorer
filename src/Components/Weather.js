@@ -9,7 +9,7 @@ class Weather extends React.Component{
   render() {
     let listItems = []
     if (this.props.weatherData) {
-      console.log(this.props.weatherData)
+      console.log(this.props.weatherData[0].date)
     // console.log(this.props.weatherData.data[0].description)
     listItems = this.props.weatherData.map((weather) => {
       return (
