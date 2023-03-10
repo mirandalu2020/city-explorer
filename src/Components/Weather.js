@@ -2,7 +2,6 @@ import React from 'react';
 import '../App.css'; 
 import WeatherDay from './WeatherDay';
 import Alert from 'react-bootstrap/Alert';
-import Card from 'react-bootstrap/Card';
 
 class Weather extends React.Component{
 
