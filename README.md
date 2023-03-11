@@ -19,6 +19,8 @@ The front end was built using React and Bootstrap. The location data is aquired 
 
 ![lab8 WRRC](WRRC/WRRC3.png)
 
+![lab9 WRRC](WRRC/WRRC4.jpg)
+
 ## Change Log
 
 03-06-2023 8:11pm - Application renders a name, latitute and longitude, and a map upon client's request for a city.
